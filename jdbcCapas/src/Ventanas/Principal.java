@@ -66,7 +66,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSociosActionPerformed
-        ListaSocios ls = new ListaSocios();
+        ListaSocios ls = new ListaSocios();//pasar por aquí la conexión 
         ls.setVisible(true);
     }//GEN-LAST:event_botonSociosActionPerformed
 
