@@ -6,31 +6,33 @@ import java.sql.ResultSet;
 import Connection.ConnectionFactory;
 import Connection.MySQLConnectionFactory;
 import Entidades.Socio;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class SocioDaoImp implements SocioDAO {
 
-    private final MySQLConnectionFactory connection;
+    private final ConnectionFactory connection;
 
-    public SocioDaoImp(MySQLConnectionFactory connection) {
+    public SocioDaoImp(ConnectionFactory connection) {
         this.connection = connection;
     }
 
     @Override
     public Socio find(int id) throws Exception {
         final String sql = "SELECT Id_Socio, Nombre, Direccion FROM Socios WHERE id_socio = ?";
+        Socio socio = null;
 
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setInt(1, id);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return new Socio(resultSet.getInt("Id_Socio"), resultSet.getString("Nombre"), resultSet.getString("Direccion"));
+                    socio = new Socio(resultSet.getInt("Id_Socio"), resultSet.getString("Nombre"), resultSet.getString("Direccion"));
                 }
             }
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return socio;
     }
 
     @Override
@@ -42,8 +44,9 @@ public class SocioDaoImp implements SocioDAO {
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {
                     Socio socio = new Socio(resultSet.getInt("Id_Socio"), resultSet.getString("Nombre"), resultSet.getString("Direccion"));
-                    lista.add(socio);                    
-                }return lista;
+                    lista.add(socio);
+                }
+                return lista;
             }
         }
     }
@@ -56,11 +59,12 @@ public class SocioDaoImp implements SocioDAO {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
 
-            try (ResultSet resultSet = statement.executeQuery(sql)) {
+            try {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
 
             }
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -71,11 +75,12 @@ public class SocioDaoImp implements SocioDAO {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
 
-            try (ResultSet resultSet = statement.executeQuery(sql)) {
+            try {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
 
             }
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -84,10 +89,11 @@ public class SocioDaoImp implements SocioDAO {
 
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setInt(1, id);
-            try (ResultSet resultSet = statement.executeQuery(sql)) {
+            try {
+                statement.executeUpdate(sql);
+            } catch (SQLException e) {
 
             }
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -5,8 +5,11 @@
  */
 package Ventanas;
 
+import Connection.ConnectionFactory;
 import Connection.MySQLConnectionFactory;
+import DAO.BarcoDAO;
 import DAO.BarcoDaoImp;
+import DAO.SocioDAO;
 import DAO.SocioDaoImp;
 
 /**
@@ -106,9 +109,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
-MySQLConnectionFactory connectionCreator = new MySQLConnectionFactory("localhost", "club_nautico", 3306, "root", "1234");
-SocioDaoImp socios = new SocioDaoImp(connectionCreator);
-BarcoDaoImp barcos = new BarcoDaoImp(connectionCreator);
+    ConnectionFactory connection = new MySQLConnectionFactory("localhost", "club_nautico", 3306, "root", "1234");
+    SocioDAO socios = new SocioDaoImp(connection);
+    BarcoDAO barcos = new BarcoDaoImp(connection);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBarcos;
     private javax.swing.JButton botonSocios;

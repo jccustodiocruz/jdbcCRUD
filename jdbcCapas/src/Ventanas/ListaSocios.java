@@ -25,31 +25,8 @@ public class ListaSocios extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        Principal principal = new Principal();
-        ArrayList<Socio> lista = new ArrayList<>();
-
-        SocioDaoImp socioLista = principal.socios;               
-
-//        try {
-//            lista = socioLista.getAll();
-//        } catch (Exception ex) {
-//            Logger.getLogger(ListaSocios.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//
-//        for (int i = 0; i < lista.size(); i++) {
-//            Socio socio = lista.get(i);
-//            for (int j = 0; j < 3; j++) {
-//                if (j == 0) {
-//                    tablaSocios.setValueAt(socio.getId(), i, j);
-//                } else if (j == 1) {
-//                    tablaSocios.setValueAt(socio.getNombre(), i, j);
-//                } else if (j == 2) {
-//                    tablaSocios.setValueAt(socio.getDireccion(), i, j);
-//                }
-//            }
-//        }
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);  
+        cargar();
     }
 
     /**
@@ -117,6 +94,37 @@ public class ListaSocios extends javax.swing.JFrame {
         agregar.setVisible(true);
     }//GEN-LAST:event_agregarSocioActionPerformed
 
+    private void cargar(){
+        ArrayList<Socio> lista = new ArrayList<>();  
+        Principal principal = this.principal;
+        
+
+        try {
+            lista = principal.socios.getAll();
+        } catch (Exception ex) {
+            Logger.getLogger(ListaSocios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        for (int i = 0; i < lista.size(); i++) {
+            Socio socio = lista.get(i);
+            for (int j = 0; j < 3; j++) {
+                switch (j) {
+                    case 0:
+                        tablaSocios.setValueAt(socio.getId(), i, j);
+                        break;
+                    case 1:
+                        tablaSocios.setValueAt(socio.getNombre(), i, j);
+                        break;
+                    case 2:
+                        tablaSocios.setValueAt(socio.getDireccion(), i, j);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -152,6 +160,7 @@ public class ListaSocios extends javax.swing.JFrame {
         });
     }
 
+    Principal principal = new Principal();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarSocio;
     private javax.swing.JScrollPane jScrollPane1;
