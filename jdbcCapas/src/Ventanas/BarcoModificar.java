@@ -1,11 +1,32 @@
 package Ventanas;
 
-public class MostrarBarco extends javax.swing.JFrame {
+import Connection.ConnectionFactory;
+import DAO.BarcoDAO;
+import Entidades.Barco;
+import Entidades.Socio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-    public MostrarBarco() {
+public class BarcoModificar extends javax.swing.JFrame {
+
+    public BarcoModificar(int id, ConnectionFactory connection, BarcoDAO barcos) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.id = id;
+        this.connection = connection;
+        this.barcos = barcos;
+        try {
+            Barco barco = barcos.find(id);
+            areaNombreBarco.setText(barco.getNombreBarco());
+            areaIdBarco.setText(Integer.toString(barco.getIdBarco()));
+            areaIdSocio.setText(Integer.toString(barco.getIdSocio()));
+            areaAmarre.setText(Integer.toString(barco.getNumAmarre()));
+            areaCuota.setText(Integer.toString(barco.getCuotaAmarre()));
+        } catch (Exception ex) {
+            Logger.getLogger(SocioModificar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -17,13 +38,14 @@ public class MostrarBarco extends javax.swing.JFrame {
         labelIdSocio = new javax.swing.JLabel();
         labelAmarre = new javax.swing.JLabel();
         labelCuota = new javax.swing.JLabel();
-        eliminarBarco = new javax.swing.JButton();
-        actualizarBarco = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
         areaCuota = new javax.swing.JTextField();
         areaNombreBarco = new javax.swing.JTextField();
         areaIdBarco = new javax.swing.JTextField();
         areaIdSocio = new javax.swing.JTextField();
         areaAmarre = new javax.swing.JTextField();
+        eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 450));
@@ -49,13 +71,18 @@ public class MostrarBarco extends javax.swing.JFrame {
         getContentPane().add(labelCuota);
         labelCuota.setBounds(60, 260, 70, 16);
 
-        eliminarBarco.setText("Eliminar");
-        getContentPane().add(eliminarBarco);
-        eliminarBarco.setBounds(360, 340, 100, 25);
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cancelar);
+        cancelar.setBounds(420, 340, 100, 25);
 
-        actualizarBarco.setText("Actualizar");
-        getContentPane().add(actualizarBarco);
-        actualizarBarco.setBounds(180, 340, 100, 25);
+        guardar.setText("Guardar");
+        getContentPane().add(guardar);
+        guardar.setBounds(130, 340, 100, 25);
         getContentPane().add(areaCuota);
         areaCuota.setBounds(130, 260, 390, 22);
 
@@ -66,12 +93,18 @@ public class MostrarBarco extends javax.swing.JFrame {
         });
         getContentPane().add(areaNombreBarco);
         areaNombreBarco.setBounds(130, 100, 390, 22);
+
+        areaIdBarco.setEditable(false);
         getContentPane().add(areaIdBarco);
         areaIdBarco.setBounds(130, 140, 390, 22);
         getContentPane().add(areaIdSocio);
         areaIdSocio.setBounds(130, 180, 390, 22);
         getContentPane().add(areaAmarre);
         areaAmarre.setBounds(130, 220, 390, 22);
+
+        eliminar.setText("Eliminar");
+        getContentPane().add(eliminar);
+        eliminar.setBounds(270, 340, 100, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -80,22 +113,30 @@ public class MostrarBarco extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_areaNombreBarcoActionPerformed
 
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cancelarActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MostrarBarco().setVisible(true);
+                new BarcoModificar(id, connection, barcos).setVisible(true);
             }
         });
     }
 
+    static ConnectionFactory connection;
+    static BarcoDAO barcos;
+    static int id;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton actualizarBarco;
     private javax.swing.JTextField areaAmarre;
     private javax.swing.JTextField areaCuota;
     private javax.swing.JTextField areaIdBarco;
     private javax.swing.JTextField areaIdSocio;
     private javax.swing.JTextField areaNombreBarco;
-    private javax.swing.JButton eliminarBarco;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JButton eliminar;
+    private javax.swing.JButton guardar;
     private javax.swing.JLabel labelAmarre;
     private javax.swing.JLabel labelCuota;
     private javax.swing.JLabel labelIdSocio;

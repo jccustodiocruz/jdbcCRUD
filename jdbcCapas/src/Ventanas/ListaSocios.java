@@ -5,12 +5,15 @@
  */
 package Ventanas;
 
-import DAO.SocioDaoImp;
+import Connection.ConnectionFactory;
+import DAO.SocioDAO;
 import Entidades.Socio;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,11 +24,13 @@ public class ListaSocios extends javax.swing.JFrame {
     /**
      * Creates new form ListaSocios
      */
-    public ListaSocios() {
+    public ListaSocios(ConnectionFactory connection, SocioDAO socios) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);  
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        ListaSocios.connection = connection;
+        ListaSocios.socios = socios;                       
         cargar();
     }
 
@@ -44,7 +49,6 @@ public class ListaSocios extends javax.swing.JFrame {
         agregarSocio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(620, 450));
         setMinimumSize(new java.awt.Dimension(620, 450));
         getContentPane().setLayout(null);
 
@@ -55,6 +59,12 @@ public class ListaSocios extends javax.swing.JFrame {
 
         tablaSocios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -70,6 +80,11 @@ public class ListaSocios extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tablaSocios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaSociosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablaSocios);
@@ -90,41 +105,48 @@ public class ListaSocios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSocioActionPerformed
-        agregarSocio agregar = new agregarSocio();
+        agregarSocio agregar = new agregarSocio(connection, socios);
         agregar.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_agregarSocioActionPerformed
 
-    private void cargar(){
-        ArrayList<Socio> lista = new ArrayList<>();  
-        Principal principal = this.principal;
+    private void tablaSociosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaSociosMouseClicked
+        DefaultTableModel model = (DefaultTableModel)tablaSocios.getModel();
+        int selectedRow = tablaSocios.getSelectedRow();
         
-
-        try {
-            lista = principal.socios.getAll();
+        int id = (int) model.getValueAt(selectedRow, 0);
+        try {            
+            SocioModificar actualizar = new SocioModificar(id, connection, socios);
+            actualizar.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(ListaSocios.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-        for (int i = 0; i < lista.size(); i++) {
+             
+        this.dispose();
+    }//GEN-LAST:event_tablaSociosMouseClicked
+    
+    private void cargar() {
+        ArrayList<Socio> lista = new ArrayList<>();             
+        
+        try {
+            lista = socios.getAll();
+        } catch (Exception ex) {
+            Logger.getLogger(ListaSocios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        for(int i = 0; i< lista.size(); i++){
             Socio socio = lista.get(i);
-            for (int j = 0; j < 3; j++) {
-                switch (j) {
-                    case 0:
-                        tablaSocios.setValueAt(socio.getId(), i, j);
-                        break;
-                    case 1:
-                        tablaSocios.setValueAt(socio.getNombre(), i, j);
-                        break;
-                    case 2:
-                        tablaSocios.setValueAt(socio.getDireccion(), i, j);
-                        break;
-                    default:
-                        break;
-                }
-            }
+            int id = socio.getId();
+            String nombre = socio.getNombre();
+            String direccion = socio.getDireccion();
+            
+            tablaSocios.setValueAt(id, i, 0);
+            tablaSocios.setValueAt(nombre, i, 1);
+            tablaSocios.setValueAt(direccion, i, 2);
+            
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -155,12 +177,13 @@ public class ListaSocios extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaSocios().setVisible(true);
+                new ListaSocios(connection, socios).setVisible(true);
             }
         });
     }
-
-    Principal principal = new Principal();
+    
+    static ConnectionFactory connection;
+    static SocioDAO socios;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarSocio;
     private javax.swing.JScrollPane jScrollPane1;

@@ -53,27 +53,28 @@ public class SocioDaoImp implements SocioDAO {
 
     @Override
     public void add(Socio socio) throws Exception {
-        final String sql = "INSERT INTO Socios(Nombre, Direccion) VALUES (?,?)";
-
-        try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
-            statement.setString(1, socio.getNombre());
-            statement.setString(2, socio.getDireccion());
-
+        final String sql = "INSERT INTO Socios (Nombre, Direccion) VALUES (?,?)";
+        Socio socioAgregar = socio;
+        
+        try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {            
+            statement.setString(1, socioAgregar.getNombre());
+            statement.setString(2, socioAgregar.getDireccion());            
             try {
                 statement.executeUpdate(sql);
             } catch (SQLException e) {
-
+                
             }
         }
     }
 
     @Override
     public void update(Socio socio) throws Exception {
-        final String sql = "UPDATE Socios SET Nombre = ?, Direccion = ?";
+        final String sql = "UPDATE Socios SET Nombre = ?, Direccion = ? WHERE Id_Socio = ?";
 
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
+            statement.setInt(3, socio.getId());
 
             try {
                 statement.executeUpdate(sql);
@@ -92,7 +93,6 @@ public class SocioDaoImp implements SocioDAO {
             try {
                 statement.executeUpdate(sql);
             } catch (SQLException e) {
-
             }
         }
     }

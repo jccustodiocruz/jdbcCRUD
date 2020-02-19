@@ -24,7 +24,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setResizable(false);    
     }
 
     /**
@@ -66,12 +66,12 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSociosActionPerformed
-        ListaSocios ls = new ListaSocios();//pasar por aquí la conexión 
+        ListaSocios ls = new ListaSocios(connection, socios);
         ls.setVisible(true);
     }//GEN-LAST:event_botonSociosActionPerformed
 
     private void botonBarcosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBarcosActionPerformed
-        ListaBarcos lb = new ListaBarcos();
+        ListaBarcos lb = new ListaBarcos(connection, barcos);
         lb.setVisible(true);
     }//GEN-LAST:event_botonBarcosActionPerformed
 

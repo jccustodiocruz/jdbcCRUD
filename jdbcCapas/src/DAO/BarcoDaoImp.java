@@ -22,7 +22,7 @@ public class BarcoDaoImp implements BarcoDAO {
 
     @Override
     public Barco find(int id) throws Exception {
-        final String sql = "SELECT id_barco, nombre, id_Socio, amarre, cuota FROM Barco WHERE id_barco = ?";
+        final String sql = "SELECT id_barco, nombre, id_Socio, amarre, cuota FROM Barcos WHERE id_Barco = ?";
         Barco barco = null;
 
         try (Connection connection = this.connection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -30,8 +30,8 @@ public class BarcoDaoImp implements BarcoDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    barco = new Barco(resultSet.getInt("id"), resultSet.getInt("id_Socio"), resultSet.getString("nombre"),
-                            resultSet.getInt("amarre"), resultSet.getInt("cuota"));
+                    barco = new Barco(resultSet.getInt("Id_Barco"), resultSet.getInt("id_Socio"), resultSet.getString("Nombre"),
+                            resultSet.getInt("Amarre"), resultSet.getInt("Cuota"));
                 }
             }
         }
@@ -41,13 +41,13 @@ public class BarcoDaoImp implements BarcoDAO {
     @Override
     public List<Barco> getAll() throws Exception {
         ArrayList<Barco> lista = new ArrayList<>();
-        final String sql = "SELECT id, nombre, direccion FROM Socio";
+        final String sql = "SELECT Id_Barco,Id_Socio, Nombre, Amarre, Cuota FROM Barcos";
 
         try (Connection connection = this.connection.getConnection(); Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {
-                    Barco barco = new Barco(resultSet.getInt("id"), resultSet.getInt("id_Socio"), resultSet.getString("nombre"),
-                            resultSet.getInt("amarre"), resultSet.getInt("cuota"));
+                    Barco barco = new Barco(resultSet.getInt("Id_Barco"), resultSet.getInt("Id_Socio"), resultSet.getString("nombre"),
+                            resultSet.getInt("Amarre"), resultSet.getInt("Cuota"));
                     lista.add(barco);
                 }
                 return lista;

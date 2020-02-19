@@ -5,8 +5,16 @@
  */
 package Ventanas;
 
+import Connection.ConnectionFactory;
+import DAO.BarcoDAO;
+import Entidades.Barco;
+import Entidades.Socio;
+import static Ventanas.ListaSocios.socios;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,11 +25,14 @@ public class ListaBarcos extends javax.swing.JFrame {
     /**
      * Creates new form ListaBarcos
      */
-    public ListaBarcos() {
+    public ListaBarcos(ConnectionFactory connection, BarcoDAO barcos) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        ListaBarcos.connection = connection;
+        ListaBarcos.barcos = barcos;
+        cargar();
     }
 
     /**
@@ -39,7 +50,6 @@ public class ListaBarcos extends javax.swing.JFrame {
         agregarBarco = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(620, 450));
         setMinimumSize(new java.awt.Dimension(620, 450));
         getContentPane().setLayout(null);
 
@@ -50,6 +60,12 @@ public class ListaBarcos extends javax.swing.JFrame {
 
         tablaBarcos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -74,6 +90,11 @@ public class ListaBarcos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaBarcos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaBarcosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaBarcos);
 
         getContentPane().add(jScrollPane1);
@@ -96,6 +117,46 @@ public class ListaBarcos extends javax.swing.JFrame {
         agregar.setVisible(true);
     }//GEN-LAST:event_agregarBarcoActionPerformed
 
+    private void tablaBarcosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaBarcosMouseClicked
+        DefaultTableModel model = (DefaultTableModel)tablaBarcos.getModel();
+        int selectedRow = tablaBarcos.getSelectedRow();
+        
+        int id = (int) model.getValueAt(selectedRow, 0);
+        try {            
+            BarcoModificar actualizar = new BarcoModificar(id, connection, barcos);
+            actualizar.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(ListaSocios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+        this.dispose();
+    }//GEN-LAST:event_tablaBarcosMouseClicked
+
+    public void cargar(){
+        ArrayList<Barco> lista = new ArrayList<>();             
+        
+        try {
+            lista = (ArrayList<Barco>) barcos.getAll();
+        } catch (Exception ex) {
+            Logger.getLogger(ListaSocios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        for(int i = 0; i< lista.size(); i++){
+            Barco barco = lista.get(i);
+            int idBarco = barco.getIdBarco();
+            int idSocio = barco.getIdSocio();
+            String nombre = barco.getNombreBarco();
+            int amarre = barco.getNumAmarre();
+            int cuota = barco.getCuotaAmarre();
+            
+            tablaBarcos.setValueAt(idBarco, i, 0);
+            tablaBarcos.setValueAt(nombre, i, 1);
+            tablaBarcos.setValueAt(idSocio, i, 2);          
+            tablaBarcos.setValueAt(amarre, i, 3);
+            tablaBarcos.setValueAt(cuota, i, 4);
+            
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -126,11 +187,13 @@ public class ListaBarcos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaBarcos().setVisible(true);
+                new ListaBarcos(connection, barcos).setVisible(true);
             }
         });
     }
 
+    static ConnectionFactory connection;
+    static BarcoDAO barcos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBarco;
     private javax.swing.JScrollPane jScrollPane1;

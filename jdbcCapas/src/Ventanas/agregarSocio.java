@@ -5,6 +5,8 @@
  */
 package Ventanas;
 
+import Connection.ConnectionFactory;
+import DAO.SocioDAO;
 import Entidades.Socio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,11 +21,13 @@ public class agregarSocio extends javax.swing.JFrame {
     /**
      * Creates new form agregarSocio
      */
-    public agregarSocio() {
+    public agregarSocio(ConnectionFactory connection, SocioDAO socios) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.connection = connection;
+        this.socios = socios;
     }
 
     /**
@@ -38,10 +42,10 @@ public class agregarSocio extends javax.swing.JFrame {
         tituloAgregarSocio = new javax.swing.JLabel();
         labelNombreSocio = new javax.swing.JLabel();
         labelDireccionSocio = new javax.swing.JLabel();
-        areaDireccionSocio = new javax.swing.JTextField();
         areaNombreSocio = new javax.swing.JTextField();
         cancelar = new javax.swing.JButton();
         guardarSocio = new javax.swing.JButton();
+        areaDireccionSocio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 450));
@@ -59,14 +63,6 @@ public class agregarSocio extends javax.swing.JFrame {
         labelDireccionSocio.setText("Direccion");
         getContentPane().add(labelDireccionSocio);
         labelDireccionSocio.setBounds(50, 170, 60, 16);
-        getContentPane().add(areaDireccionSocio);
-        areaDireccionSocio.setBounds(110, 170, 440, 22);
-
-        areaNombreSocio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                areaNombreSocioActionPerformed(evt);
-            }
-        });
         getContentPane().add(areaNombreSocio);
         areaNombreSocio.setBounds(110, 120, 440, 22);
 
@@ -87,28 +83,30 @@ public class agregarSocio extends javax.swing.JFrame {
         });
         getContentPane().add(guardarSocio);
         guardarSocio.setBounds(140, 280, 79, 25);
+        getContentPane().add(areaDireccionSocio);
+        areaDireccionSocio.setBounds(110, 170, 440, 22);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void areaNombreSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaNombreSocioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_areaNombreSocioActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void guardarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarSocioActionPerformed
-        Socio socio = new Socio();
-        socio.setNombre(areaNombreSocio.getText());
-        socio.setDireccion(areaDireccionSocio.getText());
-        
+        Socio socioNuevo = new Socio();
+        socioNuevo.setNombre(areaNombreSocio.getText());
+        socioNuevo.setDireccion(areaNombreSocio.getText());
+
         try {
-            this.principal.socios.add(socio);
+            socios.add(socioNuevo);
         } catch (Exception ex) {
-            Logger.getLogger(agregarSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(agregarSocio.class.getName()).log(Level.SEVERE, null, ex);            
         }
+
+        this.dispose();
+        ListaSocios ls = new ListaSocios(connection, socios);
+        ls.setVisible(true);
     }//GEN-LAST:event_guardarSocioActionPerformed
 
     /**
@@ -141,12 +139,13 @@ public class agregarSocio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarSocio().setVisible(true);
+                new agregarSocio(connection, socios).setVisible(true);
             }
         });
     }
 
-    Principal principal = new Principal();
+    static ConnectionFactory connection;
+    static SocioDAO socios;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField areaDireccionSocio;
     private javax.swing.JTextField areaNombreSocio;
