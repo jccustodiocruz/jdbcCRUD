@@ -54,13 +54,13 @@ public class SocioDaoImp implements SocioDAO {
 
     @Override
     public void add(Socio socio) throws Exception {
-        String sql = "INSERT INTO Socios (Nombre, Direccion) VALUES (?,?)";        
+        String sql = "INSERT INTO Socios(Nombre, Direccion) VALUES(?,?)";        
         
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {            
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());            
-                    
-                statement.executeLargeUpdate(sql);                                        
+                    System.out.println(statement);
+                statement.executeUpdate();                                        
         }
     }
 
@@ -73,7 +73,7 @@ public class SocioDaoImp implements SocioDAO {
             statement.setString(2, socio.getDireccion());
             statement.setInt(3, socio.getId());
                             
-                statement.executeUpdate(sql);            
+                statement.executeUpdate();            
             
         }
     }
@@ -85,7 +85,7 @@ public class SocioDaoImp implements SocioDAO {
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setInt(1, id);
             System.out.println(statement);
-                statement.executeUpdate(sql);            
+                statement.executeUpdate();            
         }
     }
 }
