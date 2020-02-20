@@ -64,11 +64,9 @@ public class BarcoDaoImp implements BarcoDAO {
             statement.setString(2, barco.getNombreBarco());
             statement.setInt(3, barco.getNumAmarre());
             statement.setInt(4, barco.getCuotaAmarre());
-            try {
+            
                 statement.executeUpdate();
-            } catch (SQLException e) {
-
-            }
+            
         }
     }
 
@@ -81,12 +79,9 @@ public class BarcoDaoImp implements BarcoDAO {
             statement.setString(2, barco.getNombreBarco());
             statement.setInt(3, barco.getNumAmarre());
             statement.setInt(4, barco.getCuotaAmarre());
-
-            try {
+            
                 statement.executeUpdate();
-            } catch (SQLException e) {
-
-            }
+            
         }
     }
 
@@ -96,11 +91,9 @@ public class BarcoDaoImp implements BarcoDAO {
 
         try (Connection connection = this.connection.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
-            try {
+            
                 statement.executeUpdate();
-            } catch (SQLException e) {
-
-            }
+            
         }
     }
 }

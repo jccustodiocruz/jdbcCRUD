@@ -40,7 +40,6 @@ public class Principal extends javax.swing.JFrame {
         botonBarcos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(620, 450));
         setMinimumSize(new java.awt.Dimension(620, 450));
         getContentPane().setLayout(null);
 
@@ -51,7 +50,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonSocios);
-        botonSocios.setBounds(170, 180, 100, 50);
+        botonSocios.setBounds(130, 180, 100, 50);
 
         botonBarcos.setText("Barcos");
         botonBarcos.addActionListener(new java.awt.event.ActionListener() {

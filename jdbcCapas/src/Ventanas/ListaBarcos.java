@@ -48,6 +48,7 @@ public class ListaBarcos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaBarcos = new javax.swing.JTable();
         agregarBarco = new javax.swing.JButton();
+        salidas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 450));
@@ -107,13 +108,22 @@ public class ListaBarcos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(agregarBarco);
-        agregarBarco.setBounds(260, 380, 79, 25);
+        agregarBarco.setBounds(70, 380, 79, 25);
+
+        salidas.setText("Salidas");
+        salidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salidasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(salidas);
+        salidas.setBounds(430, 380, 73, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarBarcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBarcoActionPerformed
-        agregarBarco agregar = new agregarBarco();
+        AgregarBarco agregar = new AgregarBarco(connection, barcos);
         agregar.setVisible(true);
     }//GEN-LAST:event_agregarBarcoActionPerformed
 
@@ -131,6 +141,12 @@ public class ListaBarcos extends javax.swing.JFrame {
              
         this.dispose();
     }//GEN-LAST:event_tablaBarcosMouseClicked
+
+    private void salidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salidasActionPerformed
+        ListaSalidas ls = new ListaSalidas(connection);
+        ls.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_salidasActionPerformed
 
     public void cargar(){
         ArrayList<Barco> lista = new ArrayList<>();             
@@ -197,6 +213,7 @@ public class ListaBarcos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregarBarco;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton salidas;
     private javax.swing.JTable tablaBarcos;
     private javax.swing.JLabel tituloBarcos;
     // End of variables declaration//GEN-END:variables

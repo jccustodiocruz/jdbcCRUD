@@ -105,7 +105,7 @@ public class ListaSocios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSocioActionPerformed
-        agregarSocio agregar = new agregarSocio(connection, socios);
+        AgregarSocio agregar = new AgregarSocio(connection, socios);
         agregar.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_agregarSocioActionPerformed

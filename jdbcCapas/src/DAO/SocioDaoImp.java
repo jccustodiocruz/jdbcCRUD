@@ -59,8 +59,8 @@ public class SocioDaoImp implements SocioDAO {
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {            
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());            
-                        
-                statement.execute(sql);                                        
+                    
+                statement.executeLargeUpdate(sql);                                        
         }
     }
 

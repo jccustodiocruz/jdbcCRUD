@@ -5,24 +5,29 @@
  */
 package Ventanas;
 
+import Connection.ConnectionFactory;
+import DAO.BarcoDAO;
 import Entidades.Barco;
-import Entidades.Socio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
  *
  * @author juanc
  */
-public class agregarBarco extends javax.swing.JFrame {
+public class AgregarBarco extends javax.swing.JFrame {
 
     /**
      * Creates new form guardarBarco
      */
-    public agregarBarco() {
+    public AgregarBarco(ConnectionFactory connection, BarcoDAO barcos) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.connection = connection;
+        this.barcos = barcos;
     }
 
     /**
@@ -105,11 +110,21 @@ public class agregarBarco extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void guardarBarcoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBarcoActionPerformed
-        Barco barco = new Barco();
-        barco.setNombreBarco(areaNombreBarco.getText());
-        barco.setIdSocio(Integer.parseInt(areaIdSocioBarco.getText()));
-        barco.setNumAmarre(Integer.parseInt(areaAmarreBarco.getText()));
-        barco.setCuotaAmarre(Integer.parseInt(areaCuotaBarco.getText()));
+        Barco barcoNuevo = new Barco();
+        barcoNuevo.setNombreBarco(areaNombreBarco.getText());
+        barcoNuevo.setIdSocio(Integer.parseInt(areaIdSocioBarco.getText()));
+        barcoNuevo.setNumAmarre(Integer.parseInt(areaAmarreBarco.getText()));
+        barcoNuevo.setCuotaAmarre(Integer.parseInt(areaCuotaBarco.getText()));
+        
+        try {
+            barcos.add(barcoNuevo);
+        } catch (Exception ex) {
+            Logger.getLogger(AgregarBarco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ListaBarcos lb = new ListaBarcos(connection, barcos);
+        lb.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_guardarBarcoActionPerformed
 
     /**
@@ -129,24 +144,27 @@ public class agregarBarco extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(agregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(agregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(agregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(agregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarBarco.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarBarco().setVisible(true);
+                new AgregarBarco(connection, barcos).setVisible(true);
             }
         });
     }
 
+    static ConnectionFactory connection;
+    static BarcoDAO barcos;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField areaAmarreBarco;
     private javax.swing.JTextField areaCuotaBarco;

@@ -16,12 +16,12 @@ import javax.swing.JFrame;
  *
  * @author juanc
  */
-public class agregarSocio extends javax.swing.JFrame {
+public class AgregarSocio extends javax.swing.JFrame {
 
     /**
      * Creates new form agregarSocio
      */
-    public agregarSocio(ConnectionFactory connection, SocioDAO socios) {
+    public AgregarSocio(ConnectionFactory connection, SocioDAO socios) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -102,12 +102,12 @@ public class agregarSocio extends javax.swing.JFrame {
         try {        
             socios.add(socioNuevo);
         } catch (Exception ex) {
-            Logger.getLogger(agregarSocio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AgregarSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        this.dispose();
+        
         ListaSocios ls = new ListaSocios(connection, socios);
         ls.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_guardarSocioActionPerformed
 
     /**
@@ -127,20 +127,21 @@ public class agregarSocio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(agregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(agregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(agregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(agregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarSocio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarSocio(connection, socios).setVisible(true);
+                new AgregarSocio(connection, socios).setVisible(true);
             }
         });
     }

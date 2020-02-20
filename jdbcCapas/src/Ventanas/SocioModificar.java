@@ -8,7 +8,7 @@ package Ventanas;
 import Connection.ConnectionFactory;
 import DAO.SocioDAO;
 import Entidades.Socio;
-import static Ventanas.agregarSocio.connection;
+import static Ventanas.AgregarSocio.connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -148,7 +148,7 @@ public class SocioModificar extends javax.swing.JFrame {
         this.socioNuevo.setNombre(areaNombre.getText());
         this.socioNuevo.setDireccion(areaDireccion.getText());
         try {            
-            socios.update(socioNuevo);
+            socios.update(this.socioNuevo);
         } catch (Exception ex) {
             Logger.getLogger(SocioModificar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -160,7 +160,7 @@ public class SocioModificar extends javax.swing.JFrame {
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         try {
-            socios.delete(id);
+            socios.delete(this.socioNuevo.getId());
         } catch (Exception ex) {
             Logger.getLogger(SocioModificar.class.getName()).log(Level.SEVERE, null, ex);
         }

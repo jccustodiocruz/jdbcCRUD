@@ -4,16 +4,18 @@ public class Salida {
 
     String destino;
     String fecha;
-    int horaSalida;
+    int idBarco;
+    int hora;
 
     public Salida() {
 
     }
 
-    public Salida(String destino, String fecha, int horaSalida) {
+    public Salida(int idBarco, String destino, String fecha, int hora) {
         this.destino = destino;
         this.fecha = fecha;
-        this.horaSalida = horaSalida;
+        this.idBarco = idBarco;
+        this.hora = hora;
     }
 
     public String getDestino() {
@@ -32,11 +34,21 @@ public class Salida {
         this.fecha = fecha;
     }
 
-    public int getHoraSalida() {
-        return horaSalida;
+    public int getIdBarco() {
+        return idBarco;
     }
 
-    public void setHoraSalida(int horaSalida) {
-        this.horaSalida = horaSalida;
+    public void setIdBarco(int idBarco) {
+        this.idBarco = idBarco;
     }
+
+    public int getHora() {
+        return hora;
+    }
+
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    
 }
