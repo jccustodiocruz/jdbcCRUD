@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import Connection.ConnectionFactory;
 import Connection.MySQLConnectionFactory;
 import Entidades.Socio;
+import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 
 public class SocioDaoImp implements SocioDAO {
@@ -42,7 +44,7 @@ public class SocioDaoImp implements SocioDAO {
         String sql = "SELECT Id_Socio, Nombre, Direccion FROM Socios";
 
         try (Connection connectionEstablecida = this.connection.getConnection(); Statement statement = connectionEstablecida.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(sql)) {                
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {
                     Socio socio = new Socio(resultSet.getInt("Id_Socio"), resultSet.getString("Nombre"), resultSet.getString("Direccion"));
                     lista.add(socio);
@@ -54,13 +56,13 @@ public class SocioDaoImp implements SocioDAO {
 
     @Override
     public void add(Socio socio) throws Exception {
-        String sql = "INSERT INTO Socios(Nombre, Direccion) VALUES(?,?)";        
-        
-        try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {            
+        String sql = "INSERT INTO Socios(Nombre, Direccion) VALUES(?,?)";
+
+        try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setString(1, socio.getNombre());
-            statement.setString(2, socio.getDireccion());            
-                    System.out.println(statement);
-                statement.executeUpdate();                                        
+            statement.setString(2, socio.getDireccion());
+            System.out.println(statement);
+            statement.executeUpdate();
         }
     }
 
@@ -72,9 +74,9 @@ public class SocioDaoImp implements SocioDAO {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
             statement.setInt(3, socio.getId());
-                            
-                statement.executeUpdate();            
-            
+
+            statement.executeUpdate();
+
         }
     }
 
@@ -85,7 +87,24 @@ public class SocioDaoImp implements SocioDAO {
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setInt(1, id);
             System.out.println(statement);
-                statement.executeUpdate();            
+            statement.executeUpdate();
         }
     }
+
+    //Agregar numBarcos en MySQL
+//    public void updateNumBarcos(int socioId) throws Exception {
+//        String sql = "{?=CALL actualizarNumBarcos(?)}";
+//
+//        try (Connection connectionEstablecida = this.connection.getConnection(); CallableStatement statement = connectionEstablecida.prepareCall(sql)) {
+//            statement.setInt(2, socioId);
+//            //statement.registerOutParameter(1, Types.INTEGER);
+//
+//            try (ResultSet resultSet = statement.execute(sql)) {
+//                if (resultSet.next()) {
+//                    return resultSet.getInt(1);
+//                }else
+//                    return 0;
+//            }
+//        }
+//    }
 }

@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/DAO/SalidaDaoImp.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/DAO/BarcoDaoImp.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/Ventanas/ListaSocios.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/DAO/SalidaDAO.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/Ventanas/Principal.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/Ventanas/AgregarSocio.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/DAO/SocioDaoImp.java</file>
+            <file>file:/C:/Users/lv1013/Documents/ProyectoJC/jdbcCRUD/jdbcCapas/src/Ventanas/AgregarBarco.java</file>
+        </group>
     </open-files>
 </project-private>
