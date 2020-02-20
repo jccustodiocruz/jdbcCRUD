@@ -6,6 +6,7 @@
 package Ventanas;
 
 import Entidades.Barco;
+import Entidades.Socio;
 import javax.swing.JFrame;
 
 /**

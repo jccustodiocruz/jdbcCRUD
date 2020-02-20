@@ -31,10 +31,10 @@ public class SocioModificar extends javax.swing.JFrame {
         this.connection = connection;
         this.socios = socios;
         try {
-            Socio socio = socios.find(id);
-            areaID.setText(Integer.toString(socio.getId()));
-            areaNombre.setText(socio.getNombre());
-            areaDireccion.setText(socio.getDireccion());
+            this.socioNuevo = socios.find(id);
+            areaID.setText(Integer.toString(socioNuevo.getId()));
+            areaNombre.setText(socioNuevo.getNombre());
+            areaDireccion.setText(socioNuevo.getDireccion());
         } catch (Exception ex) {
             Logger.getLogger(SocioModificar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -145,9 +145,10 @@ public class SocioModificar extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        try {
-            Socio socioActualizar = socios.find(id);
-            socios.update(socioActualizar);
+        this.socioNuevo.setNombre(areaNombre.getText());
+        this.socioNuevo.setDireccion(areaDireccion.getText());
+        try {            
+            socios.update(socioNuevo);
         } catch (Exception ex) {
             Logger.getLogger(SocioModificar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -208,6 +209,7 @@ public class SocioModificar extends javax.swing.JFrame {
     static ConnectionFactory connection;
     static SocioDAO socios;
     static int id;
+    Socio socioNuevo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField areaDireccion;
     private javax.swing.JTextField areaID;

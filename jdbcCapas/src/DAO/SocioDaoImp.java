@@ -20,12 +20,13 @@ public class SocioDaoImp implements SocioDAO {
 
     @Override
     public Socio find(int id) throws Exception {
-        final String sql = "SELECT Id_Socio, Nombre, Direccion FROM Socios WHERE id_socio = ?";
+        String sql = "SELECT Id_Socio, Nombre, Direccion FROM Socios WHERE id_socio = ?";
         Socio socio = null;
 
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setInt(1, id);
 
+            System.out.println(statement);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     socio = new Socio(resultSet.getInt("Id_Socio"), resultSet.getString("Nombre"), resultSet.getString("Direccion"));
@@ -38,10 +39,10 @@ public class SocioDaoImp implements SocioDAO {
     @Override
     public ArrayList<Socio> getAll() throws Exception {
         ArrayList<Socio> lista = new ArrayList<>();
-        final String sql = "SELECT Id_Socio, Nombre, Direccion FROM Socios";
+        String sql = "SELECT Id_Socio, Nombre, Direccion FROM Socios";
 
         try (Connection connectionEstablecida = this.connection.getConnection(); Statement statement = connectionEstablecida.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(sql)) {
+            try (ResultSet resultSet = statement.executeQuery(sql)) {                
                 while (resultSet.next()) {
                     Socio socio = new Socio(resultSet.getInt("Id_Socio"), resultSet.getString("Nombre"), resultSet.getString("Direccion"));
                     lista.add(socio);
@@ -53,47 +54,38 @@ public class SocioDaoImp implements SocioDAO {
 
     @Override
     public void add(Socio socio) throws Exception {
-        final String sql = "INSERT INTO Socios (Nombre, Direccion) VALUES (?,?)";
-        Socio socioAgregar = socio;
+        String sql = "INSERT INTO Socios (Nombre, Direccion) VALUES (?,?)";        
         
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {            
-            statement.setString(1, socioAgregar.getNombre());
-            statement.setString(2, socioAgregar.getDireccion());            
-            try {
-                statement.executeUpdate(sql);
-            } catch (SQLException e) {
-                
-            }
+            statement.setString(1, socio.getNombre());
+            statement.setString(2, socio.getDireccion());            
+                        
+                statement.execute(sql);                                        
         }
     }
 
     @Override
     public void update(Socio socio) throws Exception {
-        final String sql = "UPDATE Socios SET Nombre = ?, Direccion = ? WHERE Id_Socio = ?";
+        String sql = "UPDATE Socios SET Nombre = ?, Direccion = ? WHERE Id_Socio = ?";
 
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setString(1, socio.getNombre());
             statement.setString(2, socio.getDireccion());
             statement.setInt(3, socio.getId());
-
-            try {
-                statement.executeUpdate(sql);
-            } catch (SQLException e) {
-
-            }
+                            
+                statement.executeUpdate(sql);            
+            
         }
     }
 
     @Override
     public void delete(int id) throws Exception {
-        final String sql = "DELETE FROM Socios WHERE id_socio=?";
+        String sql = "DELETE FROM Socios WHERE Id_socio=?";
 
         try (Connection connectionEstablecida = this.connection.getConnection(); PreparedStatement statement = connectionEstablecida.prepareStatement(sql)) {
             statement.setInt(1, id);
-            try {
-                statement.executeUpdate(sql);
-            } catch (SQLException e) {
-            }
+            System.out.println(statement);
+                statement.executeUpdate(sql);            
         }
     }
 }

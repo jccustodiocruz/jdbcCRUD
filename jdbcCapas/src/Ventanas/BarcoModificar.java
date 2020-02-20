@@ -20,7 +20,7 @@ public class BarcoModificar extends javax.swing.JFrame {
             Barco barco = barcos.find(id);
             areaNombreBarco.setText(barco.getNombreBarco());
             areaIdBarco.setText(Integer.toString(barco.getIdBarco()));
-            areaIdSocio.setText(Integer.toString(barco.getIdSocio()));
+            areaSocio.setText(Integer.toString(barco.getIdSocio()));
             areaAmarre.setText(Integer.toString(barco.getNumAmarre()));
             areaCuota.setText(Integer.toString(barco.getCuotaAmarre()));
         } catch (Exception ex) {
@@ -43,9 +43,10 @@ public class BarcoModificar extends javax.swing.JFrame {
         areaCuota = new javax.swing.JTextField();
         areaNombreBarco = new javax.swing.JTextField();
         areaIdBarco = new javax.swing.JTextField();
-        areaIdSocio = new javax.swing.JTextField();
+        areaSocio = new javax.swing.JTextField();
         areaAmarre = new javax.swing.JTextField();
         eliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 450));
@@ -82,7 +83,7 @@ public class BarcoModificar extends javax.swing.JFrame {
 
         guardar.setText("Guardar");
         getContentPane().add(guardar);
-        guardar.setBounds(130, 340, 100, 25);
+        guardar.setBounds(110, 340, 100, 25);
         getContentPane().add(areaCuota);
         areaCuota.setBounds(130, 260, 390, 22);
 
@@ -97,14 +98,20 @@ public class BarcoModificar extends javax.swing.JFrame {
         areaIdBarco.setEditable(false);
         getContentPane().add(areaIdBarco);
         areaIdBarco.setBounds(130, 140, 390, 22);
-        getContentPane().add(areaIdSocio);
-        areaIdSocio.setBounds(130, 180, 390, 22);
+
+        areaSocio.setEditable(false);
+        getContentPane().add(areaSocio);
+        areaSocio.setBounds(130, 180, 390, 22);
         getContentPane().add(areaAmarre);
         areaAmarre.setBounds(130, 220, 390, 22);
 
         eliminar.setText("Eliminar");
         getContentPane().add(eliminar);
         eliminar.setBounds(270, 340, 100, 25);
+
+        jButton1.setText("Agregar Salida");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(379, 40, 140, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,11 +139,12 @@ public class BarcoModificar extends javax.swing.JFrame {
     private javax.swing.JTextField areaAmarre;
     private javax.swing.JTextField areaCuota;
     private javax.swing.JTextField areaIdBarco;
-    private javax.swing.JTextField areaIdSocio;
     private javax.swing.JTextField areaNombreBarco;
+    private javax.swing.JTextField areaSocio;
     private javax.swing.JButton cancelar;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton guardar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel labelAmarre;
     private javax.swing.JLabel labelCuota;
     private javax.swing.JLabel labelIdSocio;

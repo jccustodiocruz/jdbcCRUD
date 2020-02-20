@@ -96,12 +96,13 @@ public class agregarSocio extends javax.swing.JFrame {
     private void guardarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarSocioActionPerformed
         Socio socioNuevo = new Socio();
         socioNuevo.setNombre(areaNombreSocio.getText());
-        socioNuevo.setDireccion(areaNombreSocio.getText());
+        socioNuevo.setDireccion(areaDireccionSocio.getText());
 
-        try {
+        
+        try {        
             socios.add(socioNuevo);
         } catch (Exception ex) {
-            Logger.getLogger(agregarSocio.class.getName()).log(Level.SEVERE, null, ex);            
+            Logger.getLogger(agregarSocio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         this.dispose();
